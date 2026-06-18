@@ -1533,5 +1533,6 @@ const translations = {
 
         // Initialize App to Home
         window.onload = function() {
+            
             navigate('home');
         };
