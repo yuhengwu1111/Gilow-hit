@@ -153,7 +153,7 @@ const translations = {
                 legoTitle: "Based on modular, infinitely scalable",
                 legoDesc: "Engineered with a LEGO-compatible base plate. Easily configure into honeycomb, matrix, or custom asymmetric layouts as your space and budget desire.",
                 homekitTitle: "Seamless Apple Home Integration",
-                homekitDesc: "The structure is developed based on modularity, allowing users to freely assemble it into honeycomb, matrix, or irregular layouts according to space and budget.",
+                homekitDesc: "When idle, it automatically transforms into ambient lighting. Supports Siri and Apple Home integration to seamlessly adjust RGB color and color temperature.",
                 espTitle: "ESP32 Core Microprocessor",
                 espDesc: "Equipped with a high-performance dual-mode communication chip, combined with a high-sensitivity micro-switch, it provides seamless impact sensing with millisecond-level perfect response.",
                 modesTitle: "Four Immersive Play Modes",
@@ -260,7 +260,7 @@ const translations = {
                 slide3Title: "3. Smart Home: Seamless Apple Home Setup",
                 slide3Desc: "During idle times, GlowHit lives as elegant architectural wall lights. Control color values, brightness, and warmth directly through the iOS Home app or Siri, ensuring expensive equipment never gathers dust.",
                 slide4Title: "4. Power Safety: Travel Compliance & Dual Power Rails",
-                slide4Desc: "A 12-module setup draws around 42W. Fully compliant with IATA flight security (36Wh/74Wh batteries). Driven by central AC to DC power supply unit, totally immune to power bank over-current trips.",
+                slide4Desc: "A 12-module setup draws around 42W. Fully compliant with IATA flight security (up to 74Wh batteries). Paired with exhibition-grade AC power distribution, and featuring an active current-limiting protection mechanism to ensure grid supply safety even without external power banks.",
                 slide5Title: "5. Market Scaling & Fundraising Commitment",
                 slide5Desc: "With an affordable entry model, we plan to release dedicated mobile apps syncing real-time fitness scores to a global DB, proudly bringing Taiwan's makers onto the Osaka world stage.",
                 thItem: "Item", thBudget: "Budget (NTD)", thRemarks: "Remarks",
@@ -1022,10 +1022,10 @@ const translations = {
                                     <div>
                                         <div class="flex justify-between mb-1">
                                             <span class="text-gray-400 font-medium">${t.loadPercentLabel}</span>
-                                            <span id="loadPercentVal" class="font-bold">13.2%</span>
+                                            <span id="loadPercentVal" class="font-bold">66%</span>
                                         </div>
                                         <div class="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                                            <div id="loadProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 13.2%"></div>
+                                            <div id="loadProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 66%"></div>
                                         </div>
                                     </div>
 
@@ -1225,20 +1225,15 @@ const translations = {
 
         // Updated for 5V/10A central power adapter calculation rules
         function updatePowerCalculation() {
-            let baseCurrent = 1320; // 12 groups total开機靜態等候: 12 x 110mA = 1.32A (1320mA)
-            let activeLEDCurrent = 0;
+            let finalCurrent = 0;
 
             if (simMode === 'home') {
-                const brightnessVal = parseInt(document.getElementById('briRange').value);
-                // Active 12 modules driven by AC. 12 x 16 LEDs x (Brightness/100) x 12mA per led
-                activeLEDCurrent = Math.round(12 * 16 * (brightnessVal / 100) * 12); 
+                const brightnessVal = parseInt(document.getElementById('briRange').value, 10);
+                finalCurrent = Math.round(300 + brightnessVal * 6); // 基礎 300mA，亮度每增 1% +6mA
             } else {
-                activeLEDCurrent = 16 * 15; // single active training unit target
-                baseCurrent += (11 * 12); // Rest modules idle
+                finalCurrent = 450; // 光速反應 / 互動訓練模式固定 450mA
             }
-
-            const finalCurrent = Math.round(baseCurrent + activeLEDCurrent);
-            const limitTriggered = finalCurrent > 8500; // Over safety margin (8.5A) of 10A supply
+            const limitTriggered = finalCurrent > 2000; // Over safety margin of 2000mA capacity
 
             const curValText = document.getElementById('currentVal');
             const pBar = document.getElementById('loadProgressBar');
@@ -1249,8 +1244,8 @@ const translations = {
 
             if(curValText) {
                 curValText.textContent = `${finalCurrent} mA`;
-                // Percentage out of 10,000mA max load capacity
-                const percentage = Math.min(100, Math.round((finalCurrent / 10000) * 100));
+                // Percentage out of 2000mA max load capacity
+                const percentage = Math.min(100, Math.round((finalCurrent / 2000) * 100));
                 pPercent.textContent = `${percentage}%`;
                 pBar.style.width = `${percentage}%`;
 
