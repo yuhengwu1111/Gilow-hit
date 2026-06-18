@@ -410,8 +410,342 @@ const translations = {
             }
         };
 
-        let currentLang = 'zh';
+        function buildZhCnTranslations(source) {
+            const charMap = {
+                '體':'体','體':'体','綠':'绿','錄':'录','顯':'显','讀':'读','閱':'阅','環':'环','響':'响','裝':'装',
+                '經':'经','濟':'济','擴':'扩','變':'变','廣':'广','斷':'断','衛':'卫','衛':'卫','愛':'爱','灣':'湾',
+                '緣':'缘','線':'线','錶':'表','濾':'滤','處':'处','積':'积','規':'规','實':'实','響':'响',
+                '專':'专','應':'应','聲':'声','隨':'随','覽':'览','區':'区','鄉':'乡','臺':'台','網':'网','證':'证',
+                '觸':'触','術':'术','審':'审','領':'领','雕':'雕','輸':'输','鋪':'铺','鋼':'钢','鎖':'锁',
+                '體':'体','頁':'页','錄':'录','線':'线','網':'网','葉':'叶','覽':'览','棒':'棒','測':'测','項':'项',
+                '煩':'烦','樹':'树','潤':'润','靈':'灵','勝':'胜','憑':'凭','靈':'灵','顧':'顾','楊':'杨',
+                '續':'续','難':'难','驗':'验','顏':'颜','習':'习','憶':'忆','頻':'频','麗':'丽','順':'顺',
+                '緩':'缓','靜':'静','錄':'录','齊':'齐','綜':'综','纖':'纤','線':'线','隨':'随','螢':'萤','觸':'触',
+                '響':'响','覺':'觉','觀':'观','護':'护','點':'点','燈':'灯','緊':'紧','織':'织','繞':'绕','軟':'软',
+                '輕':'轻','軌':'轨','輔':'辅','辦':'办','載':'载','轉':'转','輝':'辉','農':'农','遺':'遗','遠':'远',
+                '醜':'丑','鎮':'镇','鐵':'铁','關':'关','陣':'阵','陸':'陆','隊':'队','願':'愿','顯':'显','頓':'顿',
+                '顏':'颜','頤':'颐','頻':'频','颱':'台','驗':'验','錄':'录','鐘':'钟','離':'离','韌':'韧','響':'响',
+                '須':'须','顧':'顾','顯':'显','馳':'驰','驟':'骤','驅':'驱','盡':'尽','續':'续','變':'变'
+            };
+            const replaceText = (text) => text.replace(/[ - -]|[ -]/g, (char) => {
+                return charMap[char] || char;
+            });
+            const replaceAll = (value) => {
+                if (typeof value !== 'string') return value;
+                let result = '';
+                for (const ch of value) {
+                    result += charMap[ch] || ch;
+                }
+                return result;
+            };
+            const result = {};
+            for (const key in source) {
+                result[key] = replaceAll(source[key]);
+            }
+            return result;
+        }
+
+        translations['zh-TW'] = translations.zh;
+        translations['zh-CN'] = buildZhCnTranslations(translations.zh);
+        translations['ja'] = translations.jp;
+
+        // Spanish (es)
+        translations['es'] = {
+            // Navbar & Footer
+            navHome: "Inicio", navProduct: "Producto", navSimulator: "Simulador", navScience: "Ciencia", navAbout: "Pitch", navTry: "Probar ahora",
+            footerTitle: "GlowHit — Muro modular inteligente", footerCopyright: "© 2026 RoboRAVE. Todos los derechos reservados.",
+            footerLink1: "Detalles de hardware", footerLink2: "Artículos científicos", footerLink3: "Pitch de Osaka",
+
+            // Home
+            heroTitle: "Reacción a la velocidad de la luz.",
+            heroSub: "Un elegante muro reactivo modular que combina entrenamiento y estética doméstica.",
+            exploreBtn: "Explorar hardware", tryBtn: "Probar demo",
+            highlightTitle: "Tecnología, fitness y estética",
+            highlightSportTitle: "Modo de entrenamiento dinámico",
+            highlightSportDesc: "Mediante algoritmos RF de baja latencia y micro‑sensores ultra‑ágiles, ofrecemos una experiencia inmersiva de impacto y coordinación visomotora. Ideal para fitness diario, saltos de agilidad y mejora de la atención.",
+            highlightSportCTA: "Iniciar simulador deportivo",
+            highlightHomeTitle: "Modo de iluminación ambiental",
+            highlightHomeDesc: "Al terminar el entrenamiento, con un solo botón se transforma en una elegante luminaria de pared. Se integra con Apple Home y Siri para ajustar sin interrupciones el color RGB y la temperatura de color.",
+            highlightHomeCTA: "Ajustar color en Apple Home",
+            legoTitle: "Escalabilidad modular",
+            legoDesc: "Diseñado para ensamblaje modular: panal, matriz o configuraciones personalizadas.",
+
+            // Product
+            homekitTitle: "Integración con Apple Home",
+            homekitDesc: "En reposo se transforma en la luz ambiental de la habitación, con ajuste fluido de tono y temperatura.",
+            espTitle: "ESP32 — Núcleo de control",
+            espDesc: "Soporta Wi‑Fi y BLE con microinterruptores de alta sensibilidad que ofrecen respuesta en milisegundos.",
+            explodedTitle: "Anatomía del hardware GlowHit",
+            explodedSub: "Estructura industrial minimalista y resistente, creada para módulos de detección robustos y una estética luminosa versátil.",
+            svgPlate: "Placa de activación pentagonal", svgDiffuser: "Cubierta difusora opalina", svgSwitches: "3 microinterruptores de 120°", svgMCU: "ESP32 + WS2812B integrada", svgBattery: "Batería 2000mAh", svgLego: "Base modular",
+            partPlate: "Placa de presión pentagonal", partPlateDesc: "Panel ergonómico que distribuye uniformemente la presión del impacto hacia los microinterruptores.",
+            partDiffuser: "Cubierta difusora", partDiffuserDesc: "Material guía de luz translúcido que convierte la iluminación WS2812B en un brillo cálido, saturado y sin deslumbrar.",
+            partSwitches: "Micro-sensores", partSwitchesDesc: "Microinterruptores de alta sensibilidad que garantizan detección sin puntos muertos ni falsas activaciones.",
+            partMCU: "Controlador ESP32", partMCUDesc: "Unidad central con Wi‑Fi/BLE, diseñada para manejo de alta velocidad y expansión modular.",
+            partBattery: "Batería 2000mAh", partBatteryDesc: "Protección integrada y carga rápida 5V Type-C para autonomía prolongada.",
+            partLego: "Base modular", partLegoDesc: "Base industrial sólida con puntos de acoplamiento modulares para ensamblaje rápido sin tornillos.",
+
+            // Layout
+            layoutTitle: "Adaptabilidad espacial: múltiples configuraciones",
+            layoutSub: "Cambia la disposición para ajustarla a cualquier entorno o rutina.",
+            layoutHoneycomb: "Panales (Honeycomb)", layoutHoneycombDesc: "Alta densidad para entrenamiento de agilidad cercano.",
+            layoutMatrix: "Matriz (Matrix)", layoutMatrixDesc: "Simetría para pruebas estandarizadas de reacción.",
+            layoutRandom: "Distribución aleatoria (DIY)", layoutRandomDesc: "Flexible para paredes irregulares y diseños creativos.",
+
+            // Modes
+            modesTitle: "Cuatro modos inmersivos",
+            modeSpeed: "Reacción ultrarrápida",
+            modeSpeedDesc: "Enciende aleatoriamente puntos objetivo para medir y registrar tu tiempo de reacción con precisión de milisegundos.",
+            modeRhythm: "Ritmo",
+            modeRhythmDesc: "Sincroniza los objetivos con la música, convirtiendo el entrenamiento en un juego rítmico.",
+            modeColor: "Búsqueda de color",
+            modeColorDesc: "Exige inhibición cognitiva: golpea solo los colores indicados para entrenar el control ejecutivo.",
+            modeTimer: "Contrarreloj",
+            modeTimerDesc: "Desafía el reloj para acumular puntos dentro de un tiempo límite; los resultados se sincronizan con el leaderboard global.",
+
+            // Simulator
+            simTitle: "GlowHit estación de control interactivo", simDesc: "Reproducimos completamente en la web la retroalimentación física de GlowHit: elige un modo y prueba tu reflejo.",
+            tabSpeed: "Reacción a la velocidad de la luz (Speed)", tabColor: "Reconocimiento de color (Inhibition)", tabHome: "Modo Apple Home",
+            scoreLabel: "PUNTOS", timeLabel: "TIEMPO", reactLabel: "REACCIÓN PROM.",
+            startBtnText: "Iniciar prueba de reacción", stopBtnText: "Detener prueba",
+            homeTitle: "Control Apple Home", homeHue: "Matiz", homeSat: "Saturación", homeBri: "Brillo", homeTemp: "Temperatura de color",
+            powerMonitor: "Batería recargable 2000mAh 5V Type‑C", powerDesc: "Simula el suministro de energía de 12 módulos con batería 5V Type‑C 2A o alimentación industrial centralizada.",
+            currentLoad: "Corriente total de la red:", loadPercentLabel: "Margen seguro de carga del transformador (máx 2000mA)",
+            statusSafe: "Operación segura (sistema estable)", statusLimit: "Protección de red activa (límite de enfriamiento habilitado)",
+
+            // Science
+            scienceTitle: "Evidencia científica del entrenamiento de agilidad",
+            scienceIntro: "El enfoque gamificado de GlowHit no es solo entrenamiento físico; es una intervención de coordinación neuromuscular que activa la neuroplasticidad, reduce el riesgo de caídas y mejora la atención.",
+            sci1Tag: "Neuroplasticidad y carga cognitiva", sci1Title: "Control atencional y experiencia de flujo (Attentional Control & Flow)",
+            sci1Desc: "Publicado en Frontiers in Psychology (2025), un estudio reciente analiza cómo el entrenamiento reactivo con alta demanda cognitiva y agilidad física afecta el cerebro. La participación regular en tareas que requieren escaneo visual rápido y golpes físicos mejora significativamente la 'estabilidad atencional' (Attentional Stability). El mecanismo clave es la inducción de estados de 'Flow', que ayudan al cerebro a mantener un foco neural estable incluso bajo alta excitación.", sci1Link: "Leer estudio (Frontiers, 2025)",
+            sci2Tag: "Propiocepción y prevención de caídas en mayores", sci2Title: "Tiempo de reacción de paso selectivo (Choice Step Reaction Time, CSRT)",
+            sci2Desc: "La capacidad para evitar caídas y fracturas en personas mayores se correlaciona fuertemente con el CSRT. GlowHit puede reducir el retraso nervioso desde la señal visual hasta la acción en las extremidades inferiores (Premotor Time), activando respuestas del campo visual periférico y mejorando los ajustes posturales rápidos.", sci2Link: "Leer investigación CSRT (Evaluating Fall Risk en PMC)",
+            sci3Tag: "Reactividad neuromuscular y coordinación visuomotora", sci3Title: "Coordinación neuromotora en tareas duales (Dual-Task Neuromotor Reactivity)",
+            sci3Desc: "Un estudio indexado en PMC (PMC12921918) demuestra que entrenamientos dual‑task que combinan búsqueda visual con ejecución física de impactos en múltiples direcciones mejoran significativamente los tiempos de reacción premotor, la integración visuomotora y el control espacial de la atención frente a distracciones, tanto en atletas jóvenes como en usuarios generales.", sci3Link: "Leer PMC12921918",
+
+            // Pitch Deck
+            aboutTitle: "Pitch Deck — RoboRAVE Osaka 2026", aboutBrief: "Representando a Taiwán con un producto que cruza smart‑home y ciencia del deporte.",
+            aboutTeam: "Equipo: RoboRAVE Taiwan | Contacto: Yu‑Heng Wu (+886 919‑618‑029)",
+            budgetTitle: "Presupuesto & Recursos", milestoneTitle: "Hitos",
+            milestone1: "2025/12 - Prototipo gen‑1 completo.", milestone2: "2026/04 - Integración táctil y optimización modular.", milestone3: "2026/08 - Demo en Osaka con 12 módulos.",
+            slide1Title: "1. Muro modular inteligente: Origen & visión", slide1Desc: "GlowHit revive el ejercicio mediante gamificación y funciona también como luz decorativa.",
+            slide2Title: "2. Ventaja técnica: baja latencia", slide2Desc: "ESP32 con 3 micro‑interruptores para captura confiable y sin deadzone.",
+            slide3Title: "3. Smart Home: integración Apple Home", slide3Desc: "Se convierte en iluminación elegante controlable por Siri.",
+            slide4Title: "4. Seguridad: cumplimiento y protección de corriente", slide4Desc: "12 módulos consumen ~42W; cumple normas de viaje y cuenta con protección activa de corriente.",
+            slide5Title: "5. Escalado comercial", slide5Desc: "Plan para app con diario de entrenamiento, gráficas y leaderboard global.",
+            thItem: "Ítem", thBudget: "Presupuesto", thRemarks: "Observaciones",
+            tbItem1: "Registro internacional", tbRemarks1: "Tarifas de inscripción y documentación.", tbItem2: "Viaje y alojamiento", tbRemarks2: "Vuelos, hotel y transporte.",
+            tbItem3: "R&D y equipamiento", tbRemarks3: "ESP32, LEDs, baterías y prototipos.", tbItem4: "Marketing y montaje", tbRemarks4: "Folletos, posters y stand.", tbTotal: "Total solicitado", tbTotalRemarks: "Financiación para el desarrollo inicial.",
+            slideOf: "Diapositiva", slideOfMax: "de 5",
+
+            // Misc / Alerts
+            alertEnd: "¡Prueba finalizada!", alertScore: "Tu puntaje total:", alertAvgReact: "Tiempo promedio:", alertHits: "Impactos válidos:", ms: "ms"
+        };
+
+        // French (fr)
+        translations['fr'] = {
+            navHome: "Accueil", navProduct: "Spécifications", navSimulator: "Simulateur", navScience: "Science", navAbout: "Pitch", navTry: "Essayer",
+            footerTitle: "GlowHit — Mur modulaire intelligent", footerCopyright: "© 2026 RoboRAVE. Tous droits réservés.",
+            footerLink1: "Détails du matériel", footerLink2: "Articles scientifiques", footerLink3: "Pitch Osaka",
+            heroTitle: "Réaction à la vitesse de la lumière.", heroSub: "Un mur réactif modulaire élégant pour l'entraînement et l'esthétique.",
+            exploreBtn: "Explorer le matériel", tryBtn: "Lancer la démo",
+            highlightTitle: "Technologie, fitness et esthétique", highlightSportTitle: "Mode d'entraînement dynamique",
+            highlightSportDesc: "Algorithmes basse latence et micro-capteurs pour une expérience d'agilité immersive.", highlightSportCTA: "Essayer le simulateur sportif",
+            highlightHomeTitle: "Mode éclairage ambiant", highlightHomeDesc: "Se transforme en lumière ambiante compatible Apple Home.", highlightHomeCTA: "Ajuster couleur Home",
+            homekitTitle: "Intégration Apple Home", homekitDesc: "En veille, il devient un éclairage d'ambiance.",
+            simTitle: "Station de contrôle GlowHit", simDesc: "Testez GlowHit dans votre navigateur.",
+            tabSpeed: "Vitesse (Speed)", tabColor: "Inhibition (Color)", tabHome: "Apple Home",
+            scoreLabel: "SCORE", timeLabel: "RELIQUE", reactLabel: "RÉAC. MOY.",
+            startBtnText: "Démarrer le test", stopBtnText: "Arrêter",
+            homeHue: "Teinte", homeSat: "Saturation", homeBri: "Luminosité", homeTemp: "Température",
+            powerMonitor: "Batterie 2000mAh 5V Type-C", powerDesc: "Simulation de charge dynamique pour 12 modules.",
+            currentLoad: "Courant total du réseau:", loadPercentLabel: "Capacité sûre (max 2000mA)",
+            statusSafe: "Fonctionnement sûr", statusLimit: "Protection réseau activée",
+            alertEnd: "Test terminé !", alertScore: "Votre score :", alertAvgReact: "Temps moyen :", alertHits: "Coups valides :", ms: "ms"
+        };
+
+        // German (de)
+        translations['de'] = {
+            navHome: "Start", navProduct: "Produkt", navSimulator: "Simulator", navScience: "Wissenschaft", navAbout: "Pitch", navTry: "Jetzt testen",
+            footerTitle: "GlowHit – Intelligente modulare Wand", footerCopyright: "© 2026 RoboRAVE. Alle Rechte vorbehalten.",
+            footerLink1: "Hardware-Details", footerLink2: "Wissenschaftliche Artikel", footerLink3: "Osaka Pitch",
+            heroTitle: "Reaktion mit Lichtgeschwindigkeit.", heroSub: "Eine elegante modulare Reaktionswand für Training und Wohnästhetik.",
+            exploreBtn: "Hardware erkunden", tryBtn: "Demo starten",
+            highlightTitle: "Technologie, Fitness & Ästhetik", highlightSportTitle: "Dynamischer Trainingsmodus",
+            highlightSportDesc: "Latenzarme Algorithmen und Mikrosensoren für ein immersives Agilitätstraining.", highlightSportCTA: "Sport-Simulator testen",
+            highlightHomeTitle: "Ambient-Beleuchtungsmodus", highlightHomeDesc: "Wird zur Ambient-Beleuchtung, kompatibel mit Apple Home.", highlightHomeCTA: "Apple Home Farbe einstellen",
+            homekitTitle: "Apple Home Integration", homekitDesc: "Im Leerlauf als Ambiente-Licht nutzbar.",
+            simTitle: "GlowHit Steuerzentrale", simDesc: "Erlebe GlowHit im Browser.",
+            tabSpeed: "Geschwindigkeit (Speed)", tabColor: "Hemmung (Color)", tabHome: "Apple Home",
+            scoreLabel: "PUNKTE", timeLabel: "ZEIT", reactLabel: "Ø REAK.",
+            startBtnText: "Test starten", stopBtnText: "Stopp",
+            homeHue: "Farbton", homeSat: "Sättigung", homeBri: "Helligkeit", homeTemp: "Farbtemperatur",
+            powerMonitor: "2000mAh 5V Type-C Akku", powerDesc: "Dynamische Lastsimulation für 12 Module.",
+            currentLoad: "Aktuelle Netzstromstärke:", loadPercentLabel: "Sichere Kapazität (max 2000mA)",
+            statusSafe: "Betriebssicher", statusLimit: "Netzschutz aktiv",
+            alertEnd: "Test abgeschlossen!", alertScore: "Ihre Gesamtpunktzahl:", alertAvgReact: "Durchschnittszeit:", alertHits: "Gültige Treffer:", ms: "ms"
+        };
+
+        // Portuguese (pt)
+        translations['pt'] = {
+            navHome: "Início", navProduct: "Especificações", navSimulator: "Simulador", navScience: "Ciência", navAbout: "Pitch", navTry: "Experimentar",
+            footerTitle: "GlowHit — Parede modular inteligente", footerCopyright: "© 2026 RoboRAVE. Todos os direitos reservados.",
+            footerLink1: "Detalhes do hardware", footerLink2: "Artigos científicos", footerLink3: "Pitch Osaka",
+            heroTitle: "Reação à velocidade da luz.", heroSub: "Uma parede reativa modular e elegante para treino e estética.",
+            exploreBtn: "Explorar hardware", tryBtn: "Iniciar demo",
+            highlightTitle: "Tecnologia, fitness e estética", highlightSportTitle: "Modo de treino dinâmico",
+            highlightSportDesc: "Algoritmos de baixa latência e micro-sensores para treino de agilidade imersivo.", highlightSportCTA: "Testar simulador esportivo",
+            highlightHomeTitle: "Modo de iluminação ambiente", highlightHomeDesc: "Converte-se em iluminação ambiente compatível com Apple Home.", highlightHomeCTA: "Ajustar cor Home",
+            homekitTitle: "Integração Apple Home", homekitDesc: "Em repouso atua como luz ambiental.",
+            simTitle: "Estação de controlo GlowHit", simDesc: "Experimente GlowHit no seu navegador.",
+            tabSpeed: "Velocidade (Speed)", tabColor: "Inibição (Color)", tabHome: "Apple Home",
+            scoreLabel: "PONTUAÇÃO", timeLabel: "TEMPO", reactLabel: "REAÇÃO MÉD.",
+            startBtnText: "Iniciar teste", stopBtnText: "Parar",
+            homeHue: "Matiz", homeSat: "Saturação", homeBri: "Brilho", homeTemp: "Temperatura",
+            powerMonitor: "Bateria 2000mAh 5V Type-C", powerDesc: "Simulação de carga dinâmica para 12 módulos.",
+            currentLoad: "Corrente total da rede:", loadPercentLabel: "Capacidade segura (máx 2000mA)",
+            statusSafe: "Funcionamento seguro", statusLimit: "Proteção de rede activada",
+            alertEnd: "Teste concluído!", alertScore: "Sua pontuação:", alertAvgReact: "Tempo médio:", alertHits: "Acertos válidos:", ms: "ms"
+        };
+
+        // Korean (ko)
+        translations['ko'] = {
+            navHome: "홈", navProduct: "제품 정보", navSimulator: "시뮬레이터", navScience: "과학", navAbout: "피치", navTry: "지금 체험",
+            footerTitle: "GlowHit 스마트 모듈형 반응 벽", footerCopyright: "© 2026 RoboRAVE. 판권 소유.",
+            footerLink1: "하드웨어 상세", footerLink2: "학술 논문", footerLink3: "오사카 피치",
+            heroTitle: "빛의 속도로 반응합니다.", heroSub: "세련된 모듈형 반응 운동 벽입니다.",
+            exploreBtn: "하드웨어 보기", tryBtn: "데모 시작",
+            highlightTitle: "기술, 피트니스, 공간의 완벽한 교차점", highlightSportTitle: "동적 운동 훈련 모드",
+            highlightSportDesc: "저지연 RF 알고리즘과 초고감도 마이크로 센서를 통해 타격과 시각-운동 협응을 극대화한 몰입형 반응 벽을 구현합니다. 일상적인 피트니스, 민첩성 점프, 집중력 강화를 위한 최적의 솔루션입니다.", highlightSportCTA: "스포츠 시뮬레이터 바로가기",
+            highlightHomeTitle: "정적 홈 인테리어 무드 조명", highlightHomeDesc: "운동이 끝나면 버튼 한 번으로 우아한 벽면 조명으로 전환됩니다. Apple Home 및 Siri와 완전히 연동되어 RGB 색상과 색온도를 자연스럽게 조절합니다.", highlightHomeCTA: "Apple Home 색상 조정",
+            homekitTitle: "Apple Home 연동", homekitDesc: "대기 시 환경 조명으로 자동 전환됩니다.",
+            simTitle: "GlowHit 인터랙티브 스테이션", simDesc: "브라우저에서 GlowHit를 경험하세요.",
+            tabSpeed: "스피드 (Speed)", tabColor: "억제 (Color)", tabHome: "Apple Home",
+            scoreLabel: "점수", timeLabel: "남은시간", reactLabel: "평균 반응",
+            startBtnText: "테스트 시작", stopBtnText: "중지",
+            homeHue: "색상 (Hue)", homeSat: "채도", homeBri: "밝기", homeTemp: "색 온도",
+            powerMonitor: "2000mAh 5V Type-C 배터리", powerDesc: "12 모듈 동작 시 동적 부하 시뮬레이션입니다.",
+            currentLoad: "현재 네트워크 전류:", loadPercentLabel: "안전 허용량 (최대 2000mA)",
+            statusSafe: "안전 작동", statusLimit: "그리드 보호 작동 중",
+            alertEnd: "테스트 종료!", alertScore: "총 점수:", alertAvgReact: "평균 반응 시간:", alertHits: "유효 타격 수:", ms: "ms"
+        };
+
+        // Arabic (ar)
+        translations['ar'] = {
+            navHome: "الرئيسية", navProduct: "مواصفات المنتج", navSimulator: "المحاكاة", navScience: "الأدلة العلمية", navAbout: "عرض المشروع", navTry: "جرب الآن",
+            footerTitle: "GlowHit — جدار تفاعلي ذكي", footerCopyright: "© 2026 RoboRAVE. كل الحقوق محفوظة.",
+            footerLink1: "تفاصيل الأجهزة", footerLink2: "أوراق علمية", footerLink3: "عرض أوساكا",
+            heroTitle: "تفاعل بسرعة الضوء.", heroSub: "جدار تفاعلي أنيق ومودولي للتمارين والجمال المنزلي.",
+            exploreBtn: "استكشف الأجهزة", tryBtn: "تشغيل العرض",
+            highlightTitle: "تقنية، لياقة، وجمال", highlightSportTitle: "وضع التدريب الديناميكي",
+            highlightSportDesc: "خوارزميات منخفضة الكمون وحساسات دقيقة لتجربة تدريب غامرة.", highlightSportCTA: "جرب المحاكاة الرياضية",
+            highlightHomeTitle: "وضع الإضاءة المحيطة", highlightHomeDesc: "يتحول إلى إضاءة متوافقة مع Apple Home.", highlightHomeCTA: "ضبط لون Apple Home",
+            homekitTitle: "تكامل Apple Home", homekitDesc: "يعمل كمصباح محيطي عند الخمول.",
+            simTitle: "محطة تحكم GlowHit", simDesc: "اختبر GlowHit في متصفحك.",
+            tabSpeed: "السرعة (Speed)", tabColor: "الكبح (Color)", tabHome: "Apple Home",
+            scoreLabel: "النقاط", timeLabel: "الوقت المتبقي", reactLabel: "متوسط الاستجابة",
+            startBtnText: "ابدأ الاختبار", stopBtnText: "إيقاف",
+            homeHue: "درجة اللون", homeSat: "التشبع", homeBri: "السطوع", homeTemp: "درجة الحرارة اللونية",
+            powerMonitor: "بطارية 2000mAh 5V Type-C", powerDesc: "محاكاة الحمولة الديناميكية لتشغيل 12 وحدة.",
+            currentLoad: "التيار الكلي للشبكة:", loadPercentLabel: "سعة آمنة (بحد أقصى 2000mA)",
+            statusSafe: "تشغيل آمن", statusLimit: "حماية الشبكة مفعّلة",
+            alertEnd: "انتهى الاختبار!", alertScore: "مجموع نقاطك:", alertAvgReact: "متوسط زمن الاستجابة:", alertHits: "إجمالي الضربات الصالحة:", ms: "ملّ\u200cس"
+        };
+
+        let currentLang = 'zh-TW';
         let isMobileMenuOpen = false;
+
+        // 檢查所有 translations 完整性的工具（在瀏覽器 Console 執行）
+        function verifyTranslations() {
+            const baseKeyLang = translations['zh-TW'] ? 'zh-TW' : (translations['zh'] ? 'zh' : Object.keys(translations)[0]);
+            const base = translations[baseKeyLang] || {};
+            const keys = Object.keys(base);
+            const report = {};
+            Object.keys(translations).forEach(lang => {
+                const t = translations[lang] || {};
+                const missing = keys.filter(k => !(k in t));
+                const identicalToBase = keys.filter(k => (k in t) && t[k] === base[k]);
+                const identicalToEn = (translations['en']) ? keys.filter(k => (k in t) && t[k] === translations['en'][k]) : [];
+                report[lang] = {
+                    總字串數: Object.keys(t).length,
+                    相對於_繁體缺少數: missing.length,
+                    相對於_繁體缺少範例: missing.slice(0,10),
+                    與繁體相同數: identicalToBase.length,
+                    與繁體相同範例: identicalToBase.slice(0,10),
+                    與英文相同數: identicalToEn.length,
+                    與英文相同範例: identicalToEn.slice(0,10)
+                };
+            });
+            console.group('Translations 驗證報告 (以繁體為基準)');
+            console.log('基準語言:', baseKeyLang, '基準字串數:', keys.length);
+            Object.keys(report).forEach(lang => {
+                const r = report[lang];
+                console.group(`語系: ${lang}`);
+                console.log('總字串數:', r.總字串數);
+                console.log('相對於繁體缺少數:', r.相對於_繁體缺少數);
+                if (r.相對於_繁體缺少數) console.log('缺少範例:', r.相對於_繁體缺少範例);
+                console.log('與繁體相同數:', r.與繁體相同數);
+                if (r.與繁體相同數) console.log('與繁體相同範例:', r.與繁體相同範例);
+                console.log('與英文相同數:', r.與英文相同數);
+                if (r.與英文相同數) console.log('與英文相同範例:', r.與英文相同範例);
+                console.groupEnd();
+            });
+            console.groupEnd();
+            return report;
+        }
+
+        // 自動以英文為來源嘗試填補缺少的西班牙文翻譯（最佳化常見詞彙）
+        function fillMissingSpanish() {
+            if (!translations['es']) translations['es'] = {};
+            const baseKeyLang = translations['zh-TW'] ? 'zh-TW' : (translations['zh'] ? 'zh' : Object.keys(translations)[0]);
+            const base = translations[baseKeyLang] || {};
+            const en = translations['en'] || {};
+            const es = translations['es'];
+            const filled = [];
+
+            const dict = {
+                'Home':'Inicio','Product':'Producto','Simulator':'Simulador','Science':'Ciencia','Pitch':'Pitch','Try':'Probar',
+                'Explore':'Explorar','Launch':'Lanzar','Demo':'demo','Speed':'Velocidad','Color':'Color','Home':'Inicio',
+                'Start':'Iniciar','Stop':'Detener','Score':'Puntaje','Remaining':'Tiempo restante','Average':'Promedio','ms':'ms',
+                'Brightness':'Brillo','Saturation':'Saturación','Hue':'Tono','Temperature':'Temperatura','Battery':'Batería',
+                'Safe':'Seguro','Protection':'Protección','Test':'Prueba','Simulator':'Simulador','Control':'Control',
+                'Light':'Luz','Ambient':'Ambiental','Integration':'Integración','Integration with Apple Home':'Integración con Apple Home',
+                'ESP32':'ESP32','Module':'Módulo','Modules':'Módulos','Layout':'Disposición','Matrix':'Matriz','Honeycomb':'Panales'
+            };
+
+            const translateEnToEs = (text) => {
+                if (!text || typeof text !== 'string') return text;
+                // quick replacements for parenthesized parts
+                text = text.replace(/\(Speed\)/gi, '(Velocidad)');
+                text = text.replace(/\(Color\)/gi, '(Color)');
+                // token replacement
+                Object.keys(dict).forEach(k => {
+                    const v = dict[k];
+                    const re = new RegExp('\\b' + k + '\\b', 'g');
+                    text = text.replace(re, v);
+                });
+                // small phrase adjustments
+                text = text.replace(/Powered by/gi, 'Alimentado por');
+                text = text.replace(/Experience/gi, 'Experimente');
+                text = text.replace(/Interactive Control Station/gi, 'Estación de control interactiva');
+                return text;
+            };
+
+            Object.keys(base).forEach(k => {
+                if (!(k in es) || !es[k]) {
+                    let candidate = en[k] || base[k] || '';
+                    let translated = translateEnToEs(candidate);
+                    es[k] = translated;
+                    filled.push({key: k, value: translated});
+                }
+            });
+
+            console.group('Auto-fill Spanish');
+            console.log('已填補項目數:', filled.length);
+            console.table(filled.slice(0, 100));
+            console.groupEnd();
+            return filled;
+        }
 
         // 行動端漢堡選單切換開關
         function toggleMobileMenu() {
@@ -1533,6 +1867,6 @@ const translations = {
 
         // Initialize App to Home
         window.onload = function() {
-            
+
             navigate('home');
         };
