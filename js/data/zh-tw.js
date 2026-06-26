@@ -120,7 +120,7 @@ window.translations['zh'] = {
     sci3Title: "雙重任務神經肌肉協調 (Dual-Task Neuromotor Reactivity)",
     sci3Desc: "發表於 PMC 醫學研究資料庫 (PMC12921918) 的最新手球等運動項目實證指出，使用高靈敏光點反應系統進行「視覺搜尋」結合「三向觸發物理擊打」的雙重任務（Dual-task）感知訓練，能顯著改善青少年選手與一般使用者者的動作反應時間、手眼運動協調（Visuomotor integration）以及對外界干擾的空間注意力控制。",
     sci3Link: "閱讀 PMC12921918 敏捷度與感覺運動整合文獻原文",
-    
+     
     // 簡報與提案頁面 (Pitch Deck Page)
     aboutTitle: "2026 大阪世界賽創業挑戰賽提案",
     aboutBrief: "我們將代表台灣前往日本大阪，以這款將「智慧家庭」與「運動科學」跨界結合的創新方案，爭取全球頂尖創客大獎！",
