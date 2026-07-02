@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlowHit | 智慧模組化光點反應牆 | Smart Modular Agility Wall</title>
+    
+    <!-- 設定書籤與分頁圖示 -->
+    <link rel="icon" href="assets/icons/LOGO.png" type="image/png">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/simulator.css">
     <link rel="stylesheet" href="css/animations.css">
@@ -13,13 +20,15 @@
 <body class="overflow-x-hidden">
 
     <!-- Translucent Apple Navigation Bar -->
-    <nav class="glass-nav fixed w-full top-0 z-50 border-b border-gray-200 px-4 md:px-6 py-4 flex justify-between items-center transition-all duration-300">
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('home')">
-            <div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center text-white font-bold text-sm tracking-widest octagon">GH</div>
-            <span class="text-xl font-semibold tracking-tight">GlowHit</span>
+    <nav class="glass-nav fixed w-full top-0 z-50 border-b border-gray-200 px-4 md:px-6 py-3 flex justify-between items-center transition-all duration-300">
+        <!-- 左側品牌區塊 -->
+        <div class="flex items-center space-x-4 cursor-pointer" onclick="navigate('home')">
+            <!-- ✨ 核心修正點：將 Logo 尺寸從 w-8 h-8 放大至 w-12 h-12 (48px)，視覺更顯眼 -->
+            <img src="assets/icons/LOGO.png" alt="GlowHit Logo" class="w-12 h-12 object-contain transform transition-transform hover:scale-105">
+            <span class="text-xl font-semibold tracking-tight text-gray-900">GlowHit</span>
         </div>
         
-        <!-- Desktop Navigation Menu - 已移除 About 項目 -->
+        <!-- Desktop Navigation Menu -->
         <div class="hidden md:flex space-x-8 text-sm font-medium">
             <span class="nav-link text-gray-500 hover:text-black transition cursor-pointer" id="nav-home" onclick="navigate('home')">Home</span>
             <span class="nav-link text-gray-500 hover:text-black transition cursor-pointer" id="nav-product" onclick="navigate('product')">Product</span>
@@ -57,8 +66,8 @@
         </div>
     </nav>
 
-    <!-- Mobile Fullscreen Overlay Navigation Menu - 已移除 About 項目 -->
-    <div id="mobileMenu" class="hidden fixed inset-x-0 top-[73px] bottom-0 z-40 glass-nav border-b border-gray-200 md:hidden flex flex-col px-6 py-8 space-y-6 text-xl font-medium transform -translate-y-8 opacity-0">
+    <!-- Mobile Fullscreen Overlay Navigation Menu -->
+    <div id="mobileMenu" class="hidden fixed inset-x-0 top-[77px] bottom-0 z-40 glass-nav border-b border-gray-200 md:hidden flex flex-col px-6 py-8 space-y-6 text-xl font-medium transform -translate-y-8 opacity-0">
         <span class="mob-nav-link text-gray-500 hover:text-black transition cursor-pointer py-2 border-b border-gray-100" id="mob-nav-home" onclick="navigate('home'); toggleMobileMenu();">Home</span>
         <span class="mob-nav-link text-gray-500 hover:text-black transition cursor-pointer py-2 border-b border-gray-100" id="mob-nav-product" onclick="navigate('product'); toggleMobileMenu();">Product</span>
         <span class="mob-nav-link text-gray-500 hover:text-black transition cursor-pointer py-2 border-b border-gray-100" id="mob-nav-simulator" onclick="navigate('simulator'); toggleMobileMenu();">Simulator</span>
@@ -66,7 +75,10 @@
         <span class="mob-nav-link text-gray-500 hover:text-black transition cursor-pointer py-2 border-b border-gray-100" id="mob-nav-science" onclick="navigate('science'); toggleMobileMenu();">Science</span>
     </div>
 
-    <main id="app" class="pt-24 pb-16 min-h-screen"></main>
+    <!-- Main Content App Mount -->
+    <main id="app" class="pt-24 pb-16 min-h-screen">
+        <!-- Dynamic content will be rendered here -->
+    </main>
 
     <!-- Global Footer -->
     <footer class="bg-white border-t border-gray-200 py-12 px-6">
@@ -78,12 +90,12 @@
             <div class="flex space-x-6 text-gray-400">
                 <span class="hover:underline cursor-pointer" id="footerLink1" onclick="navigate('product')">硬體細節</span>
                 <span class="hover:underline cursor-pointer" id="footerLink2" onclick="navigate('science')">神經學文獻</span>
-                <!-- 修正點：計畫書連結移轉併入 Vision 頁面 -->
                 <span class="hover:underline cursor-pointer" id="footerLink3" onclick="navigate('vision')">大阪參賽計畫書</span>
             </div>
         </div>
     </footer>
 
+    <!-- DATA LAYER -->
     <script>window.translations = {};</script>
     <script src="js/data/zh-tw.js"></script>
     <script src="js/data/en.js"></script>
@@ -96,6 +108,7 @@
     <script src="js/data/ko.js"></script>
     <script src="js/data/ar.js"></script>
 
+    <!-- COMPONENTS -->
     <script src="js/components/navbar.js"></script>
     <script src="js/components/footer.js"></script>
     <script src="js/components/language-switcher.js"></script>
@@ -103,12 +116,14 @@
     <script src="js/components/homekit-mode.js"></script>
     <script src="js/components/power-monitor.js"></script>
 
+    <!-- PAGES -->
     <script src="js/pages/home.js"></script>
     <script src="js/pages/product.js"></script>
     <script src="js/pages/simulator.js"></script>
     <script src="js/pages/vision.js"></script> 
     <script src="js/pages/science.js"></script>
 
+    <!-- ROUTER & APP ENTRY -->
     <script src="js/router.js"></script>
     <script src="js/app.js"></script>
 </body>
